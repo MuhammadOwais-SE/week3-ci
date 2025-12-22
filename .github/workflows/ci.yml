@@ -24,14 +24,11 @@ jobs:
         run: |
           echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
 
-
       - uses: mr-smithers-excellent/docker-build-push@v6
-        name: Build & push Docker image
         with:
-          image: ${{ secrets.DOCKER_USERNAME }}/week3-app:${{ github.sha }}
-          tags: v1, latest
-          registry: registry-url.io
-          dockerfile: Dockerfile.ci
+          image: ${{ secrets.DOCKER_USERNAME }}/week3-app
+          tags: ${{ github.sha }}, latest
+          dockerfile: Dockerfile
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
